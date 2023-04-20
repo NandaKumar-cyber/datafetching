@@ -1,4 +1,5 @@
-This application is build using Reactjs using Following command to  run the program
+This application is build using Reactjs 
+Use Following command to  run the program
 
 => Clone this repository using https://github.com/NandaKumar-cyber/datafetching
 
