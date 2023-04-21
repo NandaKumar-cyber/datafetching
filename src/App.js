@@ -11,7 +11,13 @@ const FeeCalculator = () => {
   // Helper function to get the fee amount
   const getFeeAmount = () => {
     const fee = selectedFee[selectedNationality][selectedCourse][selectedLevel];
-    return fee.amount;
+    let amount = fee.amount
+    if (selectedNationality === "INDIAN" || selectedNationality === "SAARC") {
+      amount = amount + 18
+    } else if (selectedNationality === "FOREIGN" || selectedNationality === "NRI") {
+      amount = amount + 28
+    }
+    return amount
   };
 
   // Handler functions for selecting options
@@ -20,6 +26,7 @@ const FeeCalculator = () => {
     setSelectedNationality(null);
     setSelectedCourse(null);
     setSelectedLevel(null);
+
   };
   const handleNationalitySelect = (nationality) => {
     setSelectedNationality(nationality);
@@ -33,7 +40,7 @@ const FeeCalculator = () => {
   const handleLevelSelect = (level) => {
     setSelectedLevel(level);
   };
-  
+
 
   // Render the component
   return (
@@ -65,21 +72,18 @@ const FeeCalculator = () => {
       )}
 
       {/* Select course */}
-      {selectedNationality !== null && selectedCourse === null && (
+       {selectedNationality !== null && selectedCourse === null && (
         <div>
           <h2>Select a course:</h2>
           {Object.keys(selectedFee[selectedNationality]).map((course, index) => (
             <button key={index} onClick={() => handleCourseSelect(course)}>
-              {course === 'ALL_COURSES' ? 'Medical, Dental, Ayurveda' : course}
+              {course === 'Medical, Dental, Ayurveda' ? 'ALL' : course}
             </button>
           ))}
         </div>
-      )}
+      )} 
 
-      {selectedNationality !== null && selectedCourse === null && (
-  <div>
-  </div>
-)}
+
 
       {/* Select level */}
       {selectedCourse !== null && selectedLevel === null && (
